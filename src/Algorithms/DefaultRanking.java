@@ -38,8 +38,9 @@ public class DefaultRanking implements Ranking {
             // use unigram frequency.
 
             for (String s : sug) {
-                Integer value = this.dict.searchAndValue(s);
-                assert (value != null);
+
+                int value = this.dict.searchAndValue(s);
+
                 if (!sug_order.containsKey(value)) {
                     List<String> tmp_list = new ArrayList<>();
                     tmp_list.add(s);

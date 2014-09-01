@@ -9,6 +9,7 @@ public interface Dictionary {
 
     public void add(String key);
     public boolean search(String key);
+    public Integer searchAndValue(String key);
     public long numOfKeys();
     public TrieNode getRoot();
 }

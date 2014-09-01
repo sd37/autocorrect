@@ -59,6 +59,28 @@ public class DictTrieImpl implements Dictionary {
     }
 
     @Override
+    public Integer searchAndValue(String key) {
+
+        TrieNode pcrawl = this.root;
+        assert (pcrawl != null);
+
+        for (int i = 0; i < key.length(); i++) {
+
+            Character ch = key.charAt(i);
+
+            if (pcrawl.getChild(ch) == null) {
+                return 0;
+            }
+
+            pcrawl = pcrawl.getChild(ch);
+        }
+
+        assert pcrawl != null;
+
+        return pcrawl.getFreq();
+    }
+
+    @Override
     public long numOfKeys() {
         return this.count;
     }

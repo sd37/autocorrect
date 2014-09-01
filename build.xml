@@ -96,7 +96,7 @@
   <target name="system_test" depends="compile,jar">
     <exec executable="sh">
       <arg value="-c"/>
-      <arg value="python /course/cs032/bin/tester.py -t5.0 -aTime: bin/${project} /course/cs032/data/suites/autocorrect-student/*"/>
+      <arg value="python /Users/spandan/brown_courses/cs032/bin/tester.py -t5.0 -aTime: bin/${project} /Users/spandan/brown_courses/cs032/data/suites/autocorrect-student/*"/>
     </exec>
   </target>
 

@@ -13,11 +13,7 @@ import java.util.Map;
  * Created by spandan on 8/31/14.
  */
 public class ComputeProb {
-    public static Map<String, Integer> computeBigramFreq() {
-
-        List<String> txt_paths = new ArrayList<>();
-        txt_paths.add("data/great_expectations.txt");
-        txt_paths.add("data/sherlock.txt");
+    public static Map<String, Integer> computeBigramFreq(List<String> txt_paths) {
 
         Map<String, Integer> bigram_freq = new HashMap<>();
 
@@ -27,7 +23,8 @@ public class ComputeProb {
             try {
                 br = new BufferedReader(new FileReader(txt_paths.get(i)));
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                System.out.println("ERROR:");
+                continue;
             }
 
             assert br != null;

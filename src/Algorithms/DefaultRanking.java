@@ -39,7 +39,13 @@ public class DefaultRanking implements Ranking {
 
             for (String s : sug) {
 
-                int value = this.dict.searchAndValue(s);
+                int value = -1;
+
+                if (UserInputParseUtil.numOfWords(s) > 1) {
+                    String[] parts = s.trim().split("\\s+");
+                    value = this.dict.searchAndValue(parts[0]);
+                } else
+                    value = this.dict.searchAndValue(s);
 
                 if (!sug_order.containsKey(value)) {
                     List<String> tmp_list = new ArrayList<>();
@@ -50,7 +56,7 @@ public class DefaultRanking implements Ranking {
                 }
             }
 
-            for (Integer k : sug_order.keySet()){
+            for (Integer k : sug_order.keySet()) {
                 Collections.sort(sug_order.get(k));
             }
 
@@ -64,7 +70,13 @@ public class DefaultRanking implements Ranking {
 
             for (String s : sug) {
                 String tmp_string = sec_last_word + " " + s;
-                Integer value = bigram_freq.get(tmp_string);
+                Integer value = null;
+
+                if (UserInputParseUtil.numOfWords(s) > 1) {
+                    String[] parts = s.trim().split("\\s+");
+                    value = this.bigram_freq.get(sec_last_word + " " + parts[0]);
+                } else
+                    value = this.bigram_freq.get(tmp_string);
 
                 Integer tmp_value = value == null ? 0 : value;
 
@@ -83,9 +95,20 @@ public class DefaultRanking implements Ranking {
                 Collections.sort(k_list, new Comparator<String>() {
                     @Override
                     public int compare(String o1, String o2) {
+                        int o1_value = -1;
+                        int o2_value = -1;
 
-                        int o1_value = dict.searchAndValue(o1);
-                        int o2_value = dict.searchAndValue(o2);
+                        if (UserInputParseUtil.numOfWords(o1) > 1) {
+                            String[] parts = o1.trim().split("\\s+");
+                            o1_value = dict.searchAndValue(parts[0]);
+                        } else
+                            o1_value = dict.searchAndValue(o1);
+
+                        if (UserInputParseUtil.numOfWords(o2) > 1) {
+                            String[] parts = o2.trim().split("\\s+");
+                            o2_value = dict.searchAndValue(parts[0]);
+                        } else
+                            o2_value = dict.searchAndValue(o2);
 
                         assert (o1_value != 0 && o2_value != 0);
 

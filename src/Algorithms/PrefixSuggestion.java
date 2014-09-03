@@ -55,9 +55,13 @@ public class PrefixSuggestion implements Suggestion {
         assert (pcrawl != null);
         assert (ch != null);
 
+        List<String> sug_list = new ArrayList<>();
+
+        if (i != word.length())
+            return sug_list;
+
         // get all the strings with this common prefix.
 
-        List<String> sug_list = new ArrayList<>();
         dfs(pcrawl, "", tmp_word.substring(0, i), sug_list);
 
         return sug_list;

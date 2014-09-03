@@ -10,11 +10,15 @@ public class SuggestionFactory {
         return new PrefixSuggestion(dict);
     }
 
-    public static Suggestion createLedSuggestion(Dictionary dict, int ed){
+    public static Suggestion createLedSuggestion(Dictionary dict, int ed) {
         return new LedSuggestion(dict, ed);
     }
 
-    public static Suggestion createWhiteSpaceSuggestion(Dictionary dict){
+    public static Suggestion createWhiteSpaceSuggestion(Dictionary dict) {
         return new WhiteSpaceSuggestion(dict);
+    }
+
+    public static Suggestion createNoSuggestion(Dictionary dict) {
+        return new NoSuggestion(dict);
     }
 }

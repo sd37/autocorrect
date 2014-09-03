@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,18 +22,11 @@ public class AutoCorrectApp extends Application {
     static Dictionary dict = null;
     static List<Suggestion> sug = new ArrayList<>();
     static Ranking rank = null;
-    static Map<String,Integer> bigram_freq = null;
+    static Map<String, Integer> bigram_freq = null;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         dict = new DictTrieImpl();
-        System.out.println("Construction Bigram Model");
-
-        bigram_freq = ComputeProb.computeBigramFreq();
-
-        rank = new DefaultRanking(dict,bigram_freq);
-
-        System.out.println("Finished Construction Bigram Model");
 
         for (int i = 0; i < args.length; i++) {
 
@@ -52,7 +46,7 @@ public class AutoCorrectApp extends Application {
                     break;
 
                 case "--smart":
-                    rank = new SmartRanking(dict,bigram_freq);
+                    rank = new SmartRanking(dict, bigram_freq);
                     break;
 
                 case "--gui":
@@ -65,12 +59,23 @@ public class AutoCorrectApp extends Application {
             }
         }
 
+        if (sug.size() == 0)
+            sug.add(SuggestionFactory.createNoSuggestion(dict));
+
+        bigram_freq = ComputeProb.computeBigramFreq(dict_paths);
+        rank = new DefaultRanking(dict, bigram_freq);
+
         // construct the dictionary
 
-        System.out.println("Constructing dictionary ..");
-
         for (int i = 0; i < dict_paths.size(); i++) {
-            BufferedReader br = new BufferedReader(new FileReader(dict_paths.get(i)));
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(dict_paths.get(i)));
+            } catch (FileNotFoundException e) {
+                System.out.println("ERROR:");
+                continue;
+            }
+
             assert br != null;
             String line = null;
 
@@ -91,13 +96,16 @@ public class AutoCorrectApp extends Application {
                 e.printStackTrace();
                 System.exit(1);
             } finally {
-                br.close();
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    System.out.println("ERROR:");
+                    System.exit(1);
+                }
             }
         }
 
-        System.out.println("Finished Constructing dictionary.");
-
-        if(gui_enabled)
+        if (gui_enabled)
             launch(args);
         else
             new AutoCorrectCmd(dict, sug, rank);

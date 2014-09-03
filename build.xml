@@ -27,7 +27,7 @@
   </target>
 
   <target name="jar" depends="compile">
-    <jar destfile="${derived.jar}" basedir="${derived.classes}" includes="**/*.class"/>
+      <jar manifest="./src/META-INF/MANIFEST.MF" destfile="${derived.jar}" basedir="${derived.classes}" includes="**/*.class"/>
   </target>
 
   <target name="unit_test" depends="jar">
@@ -96,7 +96,7 @@
   <target name="system_test" depends="compile,jar">
     <exec executable="sh">
       <arg value="-c"/>
-      <arg value="python /Users/spandan/brown_courses/cs032/bin/tester.py -t5.0 -aTime: bin/${project} /Users/spandan/brown_courses/cs032/data/suites/autocorrect-student/*"/>
+      <arg value="python systest/tester.py -t5.0 -aTime: bin/${project} systest/autocorrect-student/*"/>
     </exec>
   </target>
 

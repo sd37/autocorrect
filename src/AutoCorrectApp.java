@@ -28,6 +28,8 @@ public class AutoCorrectApp extends Application {
 
         dict = new DictTrieImpl();
 
+        boolean is_smart = false;
+
         for (int i = 0; i < args.length; i++) {
 
             switch (args[i]) {
@@ -46,7 +48,7 @@ public class AutoCorrectApp extends Application {
                     break;
 
                 case "--smart":
-                    rank = new SmartRanking(dict, bigram_freq);
+                    is_smart = true;
                     break;
 
                 case "--gui":
@@ -63,7 +65,7 @@ public class AutoCorrectApp extends Application {
             sug.add(SuggestionFactory.createNoSuggestion(dict));
 
         bigram_freq = ComputeProb.computeBigramFreq(dict_paths);
-        rank = new DefaultRanking(dict, bigram_freq);
+        rank = is_smart ? new SmartRanking(dict, bigram_freq) : new DefaultRanking(dict, bigram_freq);
 
         // construct the dictionary
 

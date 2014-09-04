@@ -101,7 +101,7 @@ public class AutoCorrectApp extends Application {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    System.out.println("ERROR:");
+                    e.printStackTrace();
                     System.exit(1);
                 }
             }

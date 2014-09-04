@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.9.4
-Class-Path: /Users/spandan/sandbox/autocorrect/lib/jfxrt.jar /Users/spandan/sandbox/autocorrect/lib/LevenshteinAutomatonTest.jar
+Class-Path: ../lib/jfxrt.jar ../lib/LevenshteinAutomatonTest.jar
 Created-By: 1.7.0_60-b19 (Oracle Corporation)
 Main-Class: AutoCorrectApp
 

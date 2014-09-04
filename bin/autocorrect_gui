@@ -1,2 +1,2 @@
 #! /bin/bash
-java -cp derived/autocorrect.jar AutoCorrectApp --gui --led 3 --prefix --whitespace data/great_expectations.txt data/sherlock.txt
+java -cp derived/autocorrect.jar AutoCorrectApp --gui --led 2 --prefix --whitespace data/great_expectations.txt data/sherlock.txt

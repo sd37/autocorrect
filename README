@@ -1,0 +1,5 @@
+build code :
+ant clean compile jar
+
+run :
+bin/autocorrect_gui

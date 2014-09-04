@@ -24,8 +24,7 @@ public class AutoCorrectCmd {
         while (true) {
 
             String line = in.nextLine();
-            if (line == null)
-                System.exit(0);
+            assert(line == null);
 
             String tmp_line = line.replaceAll("[^a-zA-Z]", " ").toLowerCase();
 

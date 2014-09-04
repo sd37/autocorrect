@@ -116,6 +116,7 @@ public class AutoCorrectApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         assert stage != null;
-        new AutoCorrectGui(dict, sug);
+        assert(dict != null && sug != null && rank != null);
+        new AutoCorrectGui(dict, sug, rank);
     }
 }
